@@ -13,21 +13,21 @@
 
 //2.1.怎么获取DOM树的根部元素（Document）
 //2.1.1 document对象：代表整个HTML文档,存储在全局变量window中，可以直接使用document访问
-window.document;
+//window.document;
 //得到一个HTMLDocument对象,key为documentElement
 
 //2.2.选择器查询：document.querySelector('name');
 
 //2.4 查询所有满足条件的节点  返回数据是一个类数组对象 NodeList
-let items = document.querySelectorAll('p');
-console.log(items);
+//let items = document.querySelectorAll('p');
+//console.log(items);
 
 //2.3 迭代查询：嵌套式
-let subtitle = document.querySelector('introduce');
-console.log(subtitle.querySelector('a'));
+//let subtitle = document.querySelector('introduce');
+//console.log(subtitle.querySelector('a'));
 
 
-//3.DOM属性
+//3.DOM属性（要先查找，再利用这些性质）（不用打console.log）
 //每一种HTML标签都有自己的属性，即自己的DOM类型对应
 //约分为元素节点，文本节点，特性节点等
 
@@ -55,67 +55,142 @@ console.log(subtitle.querySelector('a'));
 
 //3.6 DOM样式
 //通过style属性获取和设置元素节点的行内样式
-const h1Dom = document.querySelector('h1');
-console.log(h1Dom.classList);//DOMTokenList 获取所有的类
-console.log(h1Dom.style);//CSSStyleDeclaration
-console.log(h1Dom.style.color);
-let p = document.querySelector('p.introduce');
+//const h1Dom = document.querySelector('h1');
+//console.log(h1Dom.classList);//DOMTokenList 获取所有的类
+//console.log(h1Dom.style);//CSSStyleDeclaration
+//console.log(h1Dom.style.color);
+// p = document.querySelector('p.introduce');
 
 //3.7 DOM数据属性  网页设计的初衷是是数据和特定的HTML标签相关联
 //HTML5引入了data-*属性，允许我们在HTML标签中嵌入自定义数据属性
 //通过data-parts,data-words,data-category获取和设置data-*属性
 //比如：<article data-parts="3" data-words="1314" data-category="python">··· </article>
 //这些属性可以通过元素节点的dataset属性访问
-const articleDom = document.querySelector('article');
-console.log(articleDom.dataset);
+//const articleDom = document.querySelector('article');
+//console.log(articleDom.dataset);
 
 
-//4.DOM操作
+//4.DOM操作(一)
 
 //4.1 DOM样式修改（以优课达的点击案例）
 //目标：点击按钮，呈现选中或未选中状态
 //方法：在点击时渲染，再次点击时解除渲染，需使用到event方法，if选择等
 
 //问题阐述
+//注：保存状态
 //1.如何创建节点
+//注：应用event事件
 //2.如何设置节点属性
 //3.如何将节点添加到目标节点内部
 //4.如何清空该节点（呈现解除渲染状态）
 
-//1.针对问题一：创建节点,别忘了变量名
-const div = document.createElement('div');//创建一个div节点
+
+//(1).针对问题一：创建节点,别忘了变量名
+//const div = document.createElement('div');//创建一个div节点
 //如果想继续在这个标签内部添加纯文本内容，可以继续使用创建文本方法
-let txt = document.createTextNode('hello world!');
-div.appendChild(txt);
-document.body.appendChild(div);//document必须要写，此处的body表示body标签
-//2.添加新节点，在上文已有介绍
+//let txt = document.createTextNode('hello world!');
+//div.appendChild(txt);
+//document.body.appendChild(div);//document必须要写，此处的body表示body标签
+
+
+//event事件
+//EventTarget.addEventListener(type, Listener, options);
+//click事件，点击时触发
+//若是keyup事件，表示按键抬起时触发
+//若是keydown事件，表示按键按下时触发
+//Listener:回调函数，事件触发时调用的函数
+//options:可选参数，表示事件选项，比如是否捕获等
+
+
+//(2).添加新节点，在上文已有介绍
 //2.1 appendChild(newNode)  在所有儿子节点之后添加新的儿子节点
 //2.2 inserBefore(newNode,referenceNode) 在参考节点之前插入新的节点
 //2.3 可以把添加新的节点做成函数，再根据后续需要，补充添加位置的代码
-function createDisease(txt) {
-  const dom = document.createElement('li');
-  const domTxt = document.createTextNode(txt);
-  dom.appendChild(domTxt);
-  return dom;
-}
+//function createDisease(txt) {
+//  const dom = document.createElement('li');
+//  const domTxt = document.createTextNode(txt);
+//  dom.appendChild(domTxt);
+//  return dom;
+//}
 
-const root = document.querySelector('ul.root');
-const sars = document.querySelector('li.sars');
+// root = document.querySelector('ul.root');
+//const sars = document.querySelector('li.sars');
 
 // 创建 H1N1
-const H1N1 = createDisease('H1N1');
-root.appendChild(H1N1);
+//const H1N1 = createDisease('H1N1');
+//root.appendChild(H1N1);
 
 // 创建 新型冠状病毒
-const nCoV = createDisease('新型冠状病毒');
-root.insertBefore(nCoV, sars);
-//3. 设置样式属性
-p.setAttribute('style','width:100%;height:100%;');//和HTML相同
+//const nCoV = createDisease('新型冠状病毒');
+//root.insertBefore(nCoV, sars);
+
+
+//(3). 针对问题二：设置样式属性
+//p.setAttribute('style','width:100%;height:100%;');//和HTML相同
 //或者单独替换某个样式属性
-p.style.color = 'red';
+//p.style.color = 'red';
 //除了style属性之外，id,src,href等属性都可以用setAttribute方法设置
-//4. 清空节点内容
+
+
+//(4). 清空节点内容
 //4.1 直接innerHTML清空
-root.innerHTML = '';
+//root.innerHTML = '';
 //4.2 也可以利用它添加内容
-root.innerHTML = 'hello';
+//root.innerHTML = 'hello';
+
+
+//(5).调整状态的方法
+//直接用true和false的变化来记录，在if中进行判断即可
+//let isSelected = false;
+//if(isSelected){
+  //呈现选中状态
+  ``````
+//}else{
+//  dom.innerHTML = '';//解除渲染状态
+//}
+
+//5.DOM操作(二)
+//根据键盘输入内容显示和隐藏某些内容
+//注：写出静态页面
+//1.监视输入框内容变化
+//将addEventListener的type设置为keyup即可,函数功能用判断语句修改元素块显示或者隐藏
+//注：针对显示或者隐藏某些内容的方法：用display属性:targetDom.style.display='none'(隐藏)或者'block'（显示）;
+//2.根据输入内容，显示或隐藏某些内容
+
+//肺炎搜索结果动态显示（利用数据动态生成节点）
+//根据监视的结果，插入新的数据
+//本例重在创造新节点并插入的逻辑
+
+
+
+//旋转的调整
+const numberDivs = document.querySelectorAll('#number div');
+const numberSpans = document.querySelectorAll('#number span');
+const pointer = document.querySelectorAll('.pointer');
+
+// 容器渲染
+for (let i = 0; i < numberDivs.length; i++) {
+  numberDivs[i].style.transform = 'rotate(' + i * 30 + 'deg)';
+}
+
+// 纠正文字的旋转度数
+for (let j = 0; j < numberSpans.length; j++) {
+  numberSpans[j].style.transform = 'rotate(' + j * -30 + 'deg)';
+}
+
+
+let hourpointer = 0 ; 
+let minutepointer = 0;
+let secondpointer = 0;  
+//pointer的旋转
+function rotatePointer(){
+  hourpointer += 360/12/60/60;
+  minutepointer += 360/60/60;
+  secondpointer += 360/60;
+  pointer[0].style.transform = 'rotate(' + hourpointer + 'deg)';
+  pointer[1].style.transform = 'rotate(' + minutepointer + 'deg)';
+  pointer[2].style.transform = 'rotate(' + secondpointer + 'deg)';
+  setTimeout(rotatePointer,1000);
+}
+rotatePointer();
+

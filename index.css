@@ -23,3 +23,72 @@ a{
 li:first-child{
     color: red;
 }
+#lists li{
+    color: green;
+}
+.big-circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgreen;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    .small-circle{
+        position: relative;
+        background-color: lightcyan;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        #number div{
+            width: 190px;
+            height: 20px;
+            position: fixed;
+            left: 10px;
+            top: 90px;
+            span{
+                display: block;
+                width: 20px;
+                height: 20px;
+            }
+
+        }
+        .pointer{
+            position: fixed;
+            transform-origin: bottom center; /* 旋转中心在底部 */
+            left: 50%;
+            bottom: 50%;
+            transform: translate(-50%, -100%); /* 从中心点向上 */
+        }
+            
+        .hour-pointer{
+            width: 6px;
+            height: 50px;
+            background-color: grey;
+            position: absolute;
+            top: 60px;
+            left: 87px;
+            border-radius: 3px;
+        }
+        .minute-pointer{
+            width: 4px;
+            height: 70px;
+            background-color: green;
+            position: absolute;
+            top: 40px;
+            left: 89px;
+            border-radius: 2px;
+        }
+        .second-pointer{
+            width: 2px;
+            height: 80px;
+            background-color: mediumaquamarine;
+            position: absolute;
+            top: 30px;
+            left: 90px;
+            border-radius: 1px;
+        }
+        
+    }
+    
+}
